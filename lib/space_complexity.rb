@@ -39,4 +39,27 @@ end
 
 p sum_hash_values({ a: 1, b: 2, c: 3, d: 4 })
 
+# O(1) - Constant Complexity
+def get_sum(x, y, z)
+  sum = 0
+  x + y + z
+  return sum
+end
 
+# O(N) - Linear Complexity
+def get_sum2(array)
+  sum = 0
+  for i in [0...array.length]
+    sum += array[i]
+  end
+  return sum
+end
+
+def get_sum3(array)
+  size = array.length
+  if size == 1
+    return array[0]
+  else
+    return (array[0] + get_sum3(array[1...size]))
+  end
+end
