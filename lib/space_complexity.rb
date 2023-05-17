@@ -13,10 +13,19 @@ def sum_arr(arr)
     sum += number
   end
 
-  return sum
+  sum
 end
 
 p sum_arr([1, 2, 3, 4])
+
+def sum_arr2(arr)
+  sum = 0
+  arr.each do |number|
+    sum += number
+  end
+
+  sum
+end
 
 def sum_hash_values(hash)
   copy_hash = hash.dup
@@ -24,8 +33,10 @@ def sum_hash_values(hash)
   copy_hash.each do |_, value|
     sum += value
   end
-  
-  return sum
+
+  sum
 end
 
-p sum_hash_values({a: 1, b: 2, c: 3, d: 4})
+p sum_hash_values({ a: 1, b: 2, c: 3, d: 4 })
+
+
