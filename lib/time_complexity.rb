@@ -115,16 +115,16 @@ end
 
 
 # O(1) - Constant Complexity
-# def get_element(arr, index)
-#   arr[index]
-# end
+def get_element(arr, index)
+  arr[index]
+end
 
-# Benchmark.ips do |x|
-#   x.report('A') { get_element([1, 2, 3, 4, 5], 2) }
-#   x.report('B') { get_element([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 7) }
+Benchmark.ips do |x|
+  x.report('A') { get_element([1, 2, 3, 4, 5], 2) }
+  x.report('B') { get_element([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 7) }
 
-#   x.compare!
-# end
+  x.compare!
+end
 
 # O(log N) - Logarithmic Complexity
 # https://www.desmos.com/calculator/md3ixnavqb
