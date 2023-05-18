@@ -131,6 +131,7 @@ end
 def binary_search(arr, value)
   arr.bsearch do |element| 
     # puts 'bsearch'
+    # element >= value
     value <=> element
   end
 end
