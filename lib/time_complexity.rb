@@ -131,8 +131,8 @@ end
 def binary_search(arr, value)
   arr.bsearch do |element| 
     # puts 'bsearch'
-    # element >= value
-    value <=> element
+    # element >= value # Find-minimum mode
+    value <=> element # Find-any mode
   end
 end
 
