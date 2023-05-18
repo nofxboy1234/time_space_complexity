@@ -1,5 +1,5 @@
 require 'pry-byebug'
-# require 'benchmark'
+require 'benchmark'
 require 'benchmark/ips'
 
 # O(n) - Linear Time Complexity
@@ -63,11 +63,39 @@ end
 # end
 
 
+# Benchmark.ips do |x|
+#   x.report('A') { scramble('abc', 'abc') }
+#   x.report('B') { scramble('abcdef', 'abcdef') }
+
+#   x.compare!
+# end
+
+# Benchmark.ips do |x|
+#   x.report('A') { scramble3('abc', 'abc') }
+#   x.report('B') { scramble3('abcdef', 'abcdef') }
+
+#   x.compare!
+# end
+
+Benchmark.bm do |x|
+  x.report('A') { scramble('abcdef', 'abcdef') }
+  x.report('B') { scramble2('abcdef', 'abcdef') }
+  x.report('C') { scramble3('abcdef', 'abcdef') }
+end
+
+
 Benchmark.ips do |x|
-  x.report('C') { scramble('abcdefghi', 'abcdefghi') }
-  x.report('B') { scramble('abcdef', 'abcdef') }
-  x.report('A') { scramble('abc', 'abc') }
+  x.report('A') { scramble('abcdef', 'abcdef') }
+  x.report('B') { scramble2('abcdef', 'abcdef') }
+  x.report('C') { scramble3('abcdef', 'abcdef') }
 
   x.compare!
 end
 
+Benchmark.ips do |x|
+  x.report('A') { scramble('fedcba', 'abcdef') }
+  x.report('B') { scramble2('fedcba', 'abcdef') }
+  x.report('C') { scramble3('fedcba', 'abcdef') }
+
+  x.compare!
+end
