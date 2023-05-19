@@ -130,7 +130,7 @@ end
 
 
 # # O(log N) - Logarithmic Complexity
-# # https://www.desmos.com/calculator/aeu4hqmdj7
+# https://www.desmos.com/calculator/e01ifyzqxo
 # def binary_search(arr, value)
 #   arr.bsearch do |element|
 #     # puts 'bsearch'
@@ -196,17 +196,52 @@ end
 # p binary_search([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 7)
 
 
-# O(N) - Linear Complexity
-def print_array(arr)
-  arr.each { |element| element }
-  # for value in arr do
-  #   arr
-  # end
+# # O(N) - Linear Complexity
+# def print_array(arr)
+#   arr.each { |element| element }
+#   # for value in arr do
+#   #   arr
+#   # end
+# end
+
+# Benchmark.ips do |x|
+#   x.report('A') { print_array([1, 2, 3, 4, 5]) }
+#   x.report('B') { print_array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]) }
+
+#   x.compare!
+# end
+
+
+# O(n^2) - Quadratic Complexity
+# def nested_loop(row_arr)
+#   row_arr.each do |col_arr|
+#     col_arr.each do |col|
+#       puts col
+#     end
+#   end
+# end
+
+# O(n^2) - Quadratic Complexity
+def nested_loop(arr)
+  arr.each do |element|
+    # puts "outer loop: #{element}"
+    element
+    arr.each do |element|
+      # puts "inner loop: #{element}"
+      element
+    end
+  end
 end
 
+
+# # nested_loop([1]) # 0 extra items = (0 curve value * 2 loops) = 0 extra steps
+# # nested_loop([1, 2]) # 1 extra item = (1 curve value * 2 loops) = 2 extra steps
+# nested_loop([1, 2, 3]) # 2 extra items = (4 curve value * 2 loops) = 8 extra steps
+
 Benchmark.ips do |x|
-  x.report('A') { print_array([1, 2, 3, 4, 5]) }
-  x.report('B') { print_array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]) }
+  x.report('A') { nested_loop([1]) } # 0 extra items
+  x.report('B') { nested_loop([1, 2]) } # 1 extra item
+  x.report('C') { nested_loop([1, 2, 3]) } # 2 extra items
 
   x.compare!
 end
