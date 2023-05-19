@@ -30,9 +30,12 @@ end
 # O(n) - Linear Time Complexity
 def scramble3(characters, word)
   available = Hash.new(1)
-  
+
   characters.each_char { |c| available[c] += 1 }
-  word.each_char.all? { |c| available[c] -= 1; available[c] > 0 }
+  word.each_char.all? do |c|
+    available[c] -= 1
+    available[c] > 0
+  end
 end
 
 # p scramble3('hello worl', 'hello world')
@@ -61,7 +64,6 @@ end
 #   x.report('B') { scramble('abcdef', 'abcdef') }
 #   x.report('C') { scramble('abcdefghi', 'abcdefghi') }
 # end
-
 
 # Benchmark.ips do |x|
 #   x.report('A') { scramble('abc', 'abc') }
@@ -114,41 +116,41 @@ end
 # end
 
 
-# O(1) - Constant Complexity
-def get_element(arr, index)
-  arr[index]
-end
+# # O(1) - Constant Complexity
+# def get_element(arr, index)
+#   arr[index]
+# end
 
-Benchmark.ips do |x|
-  x.report('A') { get_element([1, 2, 3, 4, 5], 2) }
-  x.report('B') { get_element([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 7) }
+# Benchmark.ips do |x|
+#   x.report('A') { get_element([1, 2, 3, 4, 5], 2) }
+#   x.report('B') { get_element([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 7) }
 
-  x.compare!
-end
+#   x.compare!
+# end
 
-# O(log N) - Logarithmic Complexity
-# https://www.desmos.com/calculator/md3ixnavqb
-def binary_search(arr, value)
-  arr.bsearch do |element| 
-    # puts 'bsearch'
-    # element >= value # Find-minimum mode
-    value <=> element # Find-any mode
-  end
-end
 
-Benchmark.ips do |x|
-  # log(1) = 0
-  x.report('A') { binary_search([7], 7) }
-  # log(2) = 0.3
-  x.report('B') { binary_search([7, 8], 7) }
-  # log(4) = 0.6
-  x.report('C') { binary_search([7, 8, 9, 10], 7) }
-  # log(8) = 0.9
-  x.report('D') { binary_search([3, 4, 5, 6, 7, 8, 9, 10], 3) }
-  
-  x.compare!
-end
+# # O(log N) - Logarithmic Complexity
+# # https://www.desmos.com/calculator/aeu4hqmdj7
+# def binary_search(arr, value)
+#   arr.bsearch do |element|
+#     # puts 'bsearch'
+#     # element >= value # Find-minimum mode
+#     value <=> element # Find-any mode
+#   end
+# end
 
+# Benchmark.ips do |x|
+#   # log(1) = 0
+#   x.report('A') { binary_search([7], 7) }
+#   # log(2) = 0.3
+#   x.report('B') { binary_search([7, 8], 7) }
+#   # log(4) = 0.6
+#   x.report('C') { binary_search([7, 8, 9, 10], 7) }
+#   # log(8) = 0.9
+#   x.report('D') { binary_search([3, 4, 5, 6, 7, 8, 9, 10], 3) }
+
+#   x.compare!
+# end
 
 # Warming up --------------------------------------
 #                    A   724.955k i/100ms
@@ -167,7 +169,7 @@ end
 #                    C:  4191471.2 i/s - 1.71x  slower
 #                    D:  3648839.1 i/s - 1.97x  slower
 
-# dylan@dylan-Modern-14-B11MOL:~/repos/time_space_complexity$ ruby lib/time_complexity.rb 
+# dylan@dylan-Modern-14-B11MOL:~/repos/time_space_complexity$ ruby lib/time_complexity.rb
 # Warming up --------------------------------------
 #                    A   832.190k i/100ms
 #                    B   639.686k i/100ms
@@ -185,7 +187,6 @@ end
 #                    C:  5005733.6 i/s - 1.69x  slower
 #                    D:  4198304.1 i/s - 2.02x  slower
 
-
 # p binary_search([7], 7)
 # p binary_search([7, 8], 7)
 # p binary_search([7, 8, 9, 10], 7)
@@ -193,3 +194,20 @@ end
 # p binary_search([3, 4, 5, 6, 7, 8, 9, 10], 3)
 
 # p binary_search([1, 2, 3, 4, 5, 6, 7, 8, 9, 10], 7)
+
+
+# O(N) - Linear Complexity
+def print_array(arr)
+  arr.each { |element| element }
+  # for value in arr do
+  #   arr
+  # end
+end
+
+Benchmark.ips do |x|
+  x.report('A') { print_array([1, 2, 3, 4, 5]) }
+  x.report('B') { print_array([1, 2, 3, 4, 5, 6, 7, 8, 9, 10]) }
+
+  x.compare!
+end
+
