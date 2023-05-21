@@ -6,10 +6,10 @@ require 'benchmark/ips'
 # p [1, 2, 3, 4, 5, 6, 7, 8, 9, 10].select(&:even?)
 
 # O(n^2) - Quadratic Time Complexity
-def scramble(characters, word)
-  # binding.pry
-  word.each_char.all? { |c| characters.count(c) >= word.count(c) }
-end
+# def scramble(characters, word)
+#   # binding.pry
+#   word.each_char.all? { |c| characters.count(c) >= word.count(c) }
+# end
 
 # p scramble('hello worl', 'hello world')
 # p scramble('hello world', 'hello world')
@@ -17,10 +17,10 @@ end
 # p scramble('ollhe dlrow', 'hello worlds')
 
 # O(n^2) - Quadratic Time Complexity
-def scramble2(characters, word)
-  characters = characters.dup
-  word.each_char.all? { |c| characters.sub!(c, '') }
-end
+# def scramble2(characters, word)
+#   characters = characters.dup
+#   word.each_char.all? { |c| characters.sub!(c, '') }
+# end
 
 # p scramble2('hello worl', 'hello world')
 # p scramble2('hello world', 'hello world')
@@ -28,15 +28,15 @@ end
 # p scramble2('ollhe dlrow', 'hello worlds')
 
 # O(n) - Linear Time Complexity
-def scramble3(characters, word)
-  available = Hash.new(1)
+# def scramble3(characters, word)
+#   available = Hash.new(1)
 
-  characters.each_char { |c| available[c] += 1 }
-  word.each_char.all? do |c|
-    available[c] -= 1
-    available[c] > 0
-  end
-end
+#   characters.each_char { |c| available[c] += 1 }
+#   word.each_char.all? do |c|
+#     available[c] -= 1
+#     available[c] > 0
+#   end
+# end
 
 # p scramble3('hello worl', 'hello world')
 # p scramble3('hello world', 'hello world')
@@ -224,14 +224,13 @@ def nested_loop(arr)
   end
 end
 
-
-# nested_loop([1])
-# puts "\n"
-# nested_loop([1, 2]) # curve x-value 1 (extra items) => 1 extra iteration for outer loop, 1 extra iteration for inner loop => 1*1=1 total extra iterations (y-value)
-# puts "\n"
-# nested_loop([1, 2, 3]) # curve x-value 2 (extra items) => 2 extra iterations for outer loop, 2 extra iterations for inner loop => 2*2=4 total extra iterations (y-value)
-# puts "\n"
-# nested_loop([1, 2, 3, 4]) # curve x-value 3 (extra items) => 3 extra iterations for outer loop, 3 extra iterations for inner loop => 3*3=9 total extra iterations (y-value)
+# # nested_loop([1])
+# # puts "\n"
+# # nested_loop([1, 2]) # curve x-value 1 (extra items) => 1 extra iteration for outer loop, 1 extra iteration for inner loop => 1*1=1 total extra iterations (y-value)
+# # puts "\n"
+# # nested_loop([1, 2, 3]) # curve x-value 2 (extra items) => 2 extra iterations for outer loop, 2 extra iterations for inner loop => 2*2=4 total extra iterations (y-value)
+# # puts "\n"
+# # nested_loop([1, 2, 3, 4]) # curve x-value 3 (extra items) => 3 extra iterations for outer loop, 3 extra iterations for inner loop => 3*3=9 total extra iterations (y-value)
 
 Benchmark.ips do |x|
   x.report('A') { nested_loop([1]) }
@@ -242,3 +241,63 @@ Benchmark.ips do |x|
   x.compare!
 end
 
+
+# O(n^2) - Cubic Complexity
+def triple_nested_loop(arr)
+  arr.each do |element0|
+    # puts "outer loop:  #{element0}"
+    element0
+    arr.each do |element1|
+      # puts "inner loop:  #{element1}"
+      element1
+      arr.each do |element2|
+        # puts "inner loop2: #{element2}"
+        element2
+      end
+    end
+  end
+end
+
+# triple_nested_loop([1])
+# puts "\n"
+# triple_nested_loop([1, 2]) # curve x-value 1 (extra items) => 1 extra iteration for outer loop, 1 extra iteration for inner loop => 1*1*1=1 total extra iterations (y-value)
+# puts "\n"
+# triple_nested_loop([1, 2, 3]) # curve x-value 2 (extra items) => 2 extra iterations for outer loop, 2 extra iterations for inner loop => 2*2*2=8 total extra iterations (y-value)
+# puts "\n"
+# triple_nested_loop([1, 2, 3, 4]) # curve x-value 3 (extra items) => 3 extra iterations for outer loop, 3 extra iterations for inner loop => 3*3*3=27 total extra iterations (y-value)
+
+Benchmark.ips do |x|
+  x.report('A') { triple_nested_loop([1]) }
+  x.report('B') { triple_nested_loop([1, 2]) }
+  x.report('C') { triple_nested_loop([1, 2, 3]) }
+  x.report('D') { triple_nested_loop([1, 2, 3, 4]) }
+
+  x.compare!
+end
+
+
+# # O(2^n) - Exponentional Complexity
+# def subsets(a)
+#   arr = []
+
+#   for i in 0..(a.length) do
+#     arr = arr + a.combination(i).to_a
+#   end
+
+#   arr
+# end
+
+# p subsets([''])
+# puts "\n"
+# p subsets(['a'])
+# puts "\n"
+
+
+# # Benchmark.ips do |x|
+# #   x.report('A') { nested_loop([1]) }
+# #   x.report('B') { nested_loop([1, 2]) }
+# #   x.report('C') { nested_loop([1, 2, 3]) }
+# #   x.report('D') { nested_loop([1, 2, 3, 4]) }
+
+# #   x.compare!
+# # end
