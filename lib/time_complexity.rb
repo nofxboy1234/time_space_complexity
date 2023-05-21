@@ -213,35 +213,31 @@ end
 
 
 # O(n^2) - Quadratic Complexity
-# def nested_loop(row_arr)
-#   row_arr.each do |col_arr|
-#     col_arr.each do |col|
-#       puts col
-#     end
-#   end
-# end
-
-# O(n^2) - Quadratic Complexity
 def nested_loop(arr)
-  arr.each do |element|
-    # puts "outer loop: #{element}"
-    element
-    arr.each do |element|
-      # puts "inner loop: #{element}"
-      element
+  arr.each do |outer_element|
+    # puts "outer loop: #{outer_element}"
+    outer_element
+    arr.each do |inner_element|
+      # puts "inner loop: #{inner_element}"
+      inner_element
     end
   end
 end
 
 
-# # nested_loop([1]) # 0 extra items = (0 curve value * 2 loops) = 0 extra steps
-# # nested_loop([1, 2]) # 1 extra item = (1 curve value * 2 loops) = 2 extra steps
-# nested_loop([1, 2, 3]) # 2 extra items = (4 curve value * 2 loops) = 8 extra steps
+# nested_loop([1])
+# puts "\n"
+# nested_loop([1, 2]) # curve x-value 1 (extra items) => 1 extra iteration for outer loop, 1 extra iteration for inner loop => 1*1=1 total extra iterations (y-value)
+# puts "\n"
+# nested_loop([1, 2, 3]) # curve x-value 2 (extra items) => 2 extra iterations for outer loop, 2 extra iterations for inner loop => 2*2=4 total extra iterations (y-value)
+# puts "\n"
+# nested_loop([1, 2, 3, 4]) # curve x-value 3 (extra items) => 3 extra iterations for outer loop, 3 extra iterations for inner loop => 3*3=9 total extra iterations (y-value)
 
 Benchmark.ips do |x|
-  x.report('A') { nested_loop([1]) } # 0 extra items
-  x.report('B') { nested_loop([1, 2]) } # 1 extra item
-  x.report('C') { nested_loop([1, 2, 3]) } # 2 extra items
+  x.report('A') { nested_loop([1]) }
+  x.report('B') { nested_loop([1, 2]) }
+  x.report('C') { nested_loop([1, 2, 3]) }
+  x.report('D') { nested_loop([1, 2, 3, 4]) }
 
   x.compare!
 end
